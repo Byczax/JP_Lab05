@@ -46,12 +46,13 @@ public class Robot implements Runnable {
         synchronized (name) {
             this.status = status;
         }
+        charger.printStatus();
     }
 
     @Override
     public synchronized void run() {
         try {
-            System.out.format("%s | %s | %s | %d | %d\n", getName(), getSize(), getStatus(), getChargeTime(), getWorkTime());
+//            System.out.format("%s | %s | %s | %d | %d\n", getName(), getSize(), getStatus(), getChargeTime(), getWorkTime());
             //noinspection InfiniteLoopStatement
             while (true) {
 //                System.out.printf("Robot %s is now working\n",getName());
