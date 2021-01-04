@@ -1,7 +1,7 @@
 package models;
 
-public enum RobotState {
+public enum RobotStatus {
     WORKING,
-    WAINTING,
+    WAITING,
     CHARGING
 }
