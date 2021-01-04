@@ -3,12 +3,12 @@ package models;
 import java.util.Random;
 
 public class Robot implements Runnable {
-    final String name;
-    int size;
-    int chargeTime;
-    int workTime;
-    RobotStatus status;
-    Charger charger;
+    private final String name;
+    private int size;
+    private int chargeTime;
+    private int workTime;
+    private RobotStatus status;
+    private Charger charger;
 
     public Robot(String name, int maxSize, int chargeTime, int workTime, Charger charger) {
         Random rand = new Random();
@@ -58,15 +58,16 @@ public class Robot implements Runnable {
                 setStatus(RobotStatus.WORKING);
                 //noinspection BusyWait
                 Thread.sleep(getWorkTime() * 100L);
-                setStatus(RobotStatus.WAITING);
+                setStatus(RobotStatus.CHECKING);
 
-                while (getStatus().equals(RobotStatus.WAITING)) {
+                while (getStatus().equals(RobotStatus.CHECKING)) {
 
 //                    System.out.printf("Robot %s is now waiting\n",getName());
                     if (charger.requestConnection(this)) {
                         setStatus(RobotStatus.CHARGING);
                         break;
                     }
+                    setStatus(RobotStatus.WAITING);
                     wait();
                 }
 //                System.out.printf("Robot %s is now charging\n",getName());
@@ -80,7 +81,10 @@ public class Robot implements Runnable {
     }
 
     public synchronized void notifyMe() {
-        notify();
+        if(getStatus().equals(RobotStatus.WAITING)) {
+            notify();
+            setStatus(RobotStatus.CHECKING);
+        }
     }
 }
 

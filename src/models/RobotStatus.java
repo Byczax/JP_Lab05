@@ -3,5 +3,6 @@ package models;
 public enum RobotStatus {
     WORKING,
     WAITING,
-    CHARGING
+    CHARGING,
+    CHECKING,
 }
