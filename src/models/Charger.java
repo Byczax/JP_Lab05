@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Charger {
-    List<Port> ports = new ArrayList<>();
-    List<Robot> robotList;
+    private List<Port> ports = new ArrayList<>();
+    private List<Robot> robotList;
 
     public Charger(int howManyPorts, List<Robot> robotList) {
         for (int i = 0; i < howManyPorts; i++) {
